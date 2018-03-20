@@ -1,0 +1,3 @@
+q1现在可以运行  得到result里面有两个， terminal那个是第一次  2.txt是第二次 用的是2.txt
+
+getFinalLis.py 这个是用来得到最后的table， 计算要求计算的 mean error
