@@ -1,0 +1,224 @@
+RESTART: /Users/marktoms/Desktop/9417/Machine-Learning-And-Data-Mining/Assignment1/datasets/q2_Aid.py 
+balance-scale
+primary-tumor
+
+Warning (from warnings module):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/sklearn/model_selection/_split.py", line 605
+    % (min_groups, self.n_splits)), Warning)
+Warning: The least populated class in y has only 1 members, which is too few. The minimum number of members in any class cannot be less than n_splits=10.
+
+Warning (from warnings module):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/sklearn/model_selection/_split.py", line 605
+    % (min_groups, self.n_splits)), Warning)
+Warning: The least populated class in y has only 2 members, which is too few. The minimum number of members in any class cannot be less than n_splits=10.
+
+Warning (from warnings module):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/sklearn/model_selection/_split.py", line 605
+    % (min_groups, self.n_splits)), Warning)
+Warning: The least populated class in y has only 3 members, which is too few. The minimum number of members in any class cannot be less than n_splits=10.
+
+Warning (from warnings module):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/sklearn/model_selection/_split.py", line 605
+    % (min_groups, self.n_splits)), Warning)
+Warning: The least populated class in y has only 5 members, which is too few. The minimum number of members in any class cannot be less than n_splits=10.
+glass
+
+Warning (from warnings module):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/sklearn/model_selection/_split.py", line 605
+    % (min_groups, self.n_splits)), Warning)
+Warning: The least populated class in y has only 8 members, which is too few. The minimum number of members in any class cannot be less than n_splits=10.
+
+Warning (from warnings module):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/sklearn/model_selection/_split.py", line 605
+    % (min_groups, self.n_splits)), Warning)
+Warning: The least populated class in y has only 9 members, which is too few. The minimum number of members in any class cannot be less than n_splits=10.
+heart-h
+                                                   Decision Tree Results                                                   
+---------------------------------------------------------------------------------------------------------------------------
+    Dataset     |     Default      |        0%        |       20%        |       50%        |       80%        |
+balance-scale  
+| 35.11% ( 2)     
+| 76.06% ( 2)     
+| 73.40% (17)     
+| 60.64% (17)     
+| 19.15% ( 7)     
+|
+
+primary-tumor  
+| 30.39% ( 2)     
+| 47.06% (12)     
+| 36.27% ( 7)     
+| 35.29% ( 7)     
+|  4.90% (22)     
+|
+
+glass          
+| 36.92% ( 2)     
+| 69.23% ( 7)     
+| 66.15% (22)     
+| 47.69% (12)     
+| 12.31% (27)     
+|
+
+heart-h        
+| 59.55% ( 2)     
+| 76.40% (22)     
+| 77.53% (22)     
+| 38.20% (27)     
+| 30.34% (17)     
+|
+
+
+
+>>> 
+================ RESTART: /Users/marktoms/Desktop/q2_plot.py ================
+                                                   Decision Tree Results                                                   
+---------------------------------------------------------------------------------------------------------------------------
+    Dataset     |     Default      |        0%        |       20%        |       50%        |       80%        |
+Traceback (most recent call last):
+  File "/Users/marktoms/Desktop/q2_plot.py", line 26, in <module>
+    print("{:<15}".format(paths[i]))
+NameError: name 'paths' is not defined
+>>> 
+================ RESTART: /Users/marktoms/Desktop/q2_plot.py ================
+                                                   Decision Tree Results                                                   
+---------------------------------------------------------------------------------------------------------------------------
+    Dataset     |     Default      |        0%        |       20%        |       50%        |       80%        |
+balance-scale  
+| 35.11% ( 2)     
+| 76.06% ( 2)     
+| 73.40% (17)     
+| 60.64% (17)     
+| 19.15% ( 7)     
+|
+
+primary-tumor  
+| 30.39% ( 2)     
+| 47.06% (12)     
+| 36.27% ( 7)     
+| 35.29% ( 7)     
+|  4.90% (22)     
+|
+
+glass          
+| 36.92% ( 2)     
+| 69.23% ( 7)     
+| 66.15% (22)     
+| 47.69% (12)     
+| 12.31% (27)     
+|
+
+heart-h        
+| 59.55% ( 2)     
+| 76.40% (22)     
+| 77.53% (22)     
+| 38.20% (27)     
+| 30.34% (17)     
+|
+
+
+
+>>> 
+================ RESTART: /Users/marktoms/Desktop/q2_plot.py ================
+                                                   Decision Tree Results                                                   
+---------------------------------------------------------------------------------------------------------------------------
+    Dataset     |     Default      |        0%        |       20%        |       50%        |       80%        |
+balance-scale  
+| 35.11% ( 2)     
+| 76.06% ( 2)     
+| 73.40% (17)     
+| 60.64% (17)     
+| 19.15% ( 7)     
+|
+primary-tumor  
+| 30.39% ( 2)     
+| 47.06% (12)     
+| 36.27% ( 7)     
+| 35.29% ( 7)     
+|  4.90% (22)     
+|
+glass          
+| 36.92% ( 2)     
+| 69.23% ( 7)     
+| 66.15% (22)     
+| 47.69% (12)     
+| 12.31% (27)     
+|
+heart-h        
+| 59.55% ( 2)     
+| 76.40% (22)     
+| 77.53% (22)     
+| 38.20% (27)     
+| 30.34% (17)     
+|
+
+
+>>> 
+================ RESTART: /Users/marktoms/Desktop/q2_plot.py ================
+                                                   Decision Tree Results                                                   
+---------------------------------------------------------------------------------------------------------------------------
+    Dataset     |     Default      |        0%        |       20%        |       50%        |       80%        |
+balance-scale  
+| 35.11% ( 2)     
+| 76.06% ( 2)     
+| 73.40% (17)     
+| 60.64% (17)     
+| 19.15% ( 7)     
+|primary-tumor  
+| 30.39% ( 2)     
+| 47.06% (12)     
+| 36.27% ( 7)     
+| 35.29% ( 7)     
+|  4.90% (22)     
+|glass          
+| 36.92% ( 2)     
+| 69.23% ( 7)     
+| 66.15% (22)     
+| 47.69% (12)     
+| 12.31% (27)     
+|heart-h        
+| 59.55% ( 2)     
+| 76.40% (22)     
+| 77.53% (22)     
+| 38.20% (27)     
+| 30.34% (17)     
+|
+
+>>> 
+================ RESTART: /Users/marktoms/Desktop/q2_plot.py ================
+                                                   Decision Tree Results                                                   
+---------------------------------------------------------------------------------------------------------------------------
+    Dataset     |     Default      |        0%        |       20%        |       50%        |       80%        |
+balance-scale  
+| 35.11% ( 2)     | 76.06% ( 2)     | 73.40% (17)     | 60.64% (17)     | 19.15% ( 7)     |
+primary-tumor  
+| 30.39% ( 2)     | 47.06% (12)     | 36.27% ( 7)     | 35.29% ( 7)     |  4.90% (22)     |
+glass          
+| 36.92% ( 2)     | 69.23% ( 7)     | 66.15% (22)     | 47.69% (12)     | 12.31% (27)     |
+heart-h        
+| 59.55% ( 2)     | 76.40% (22)     | 77.53% (22)     | 38.20% (27)     | 30.34% (17)     |
+
+
+>>> 
+================ RESTART: /Users/marktoms/Desktop/q2_plot.py ================
+                                                   Decision Tree Results                                                   
+---------------------------------------------------------------------------------------------------------------------------
+    Dataset     |     Default      |        0%        |       20%        |       50%        |       80%        |
+balance-scale  | 35.11% ( 2)     | 76.06% ( 2)     | 73.40% (17)     | 60.64% (17)     | 19.15% ( 7)     |
+primary-tumor  | 30.39% ( 2)     | 47.06% (12)     | 36.27% ( 7)     | 35.29% ( 7)     |  4.90% (22)     |
+glass          | 36.92% ( 2)     | 69.23% ( 7)     | 66.15% (22)     | 47.69% (12)     | 12.31% (27)     |
+heart-h        | 59.55% ( 2)     | 76.40% (22)     | 77.53% (22)     | 38.20% (27)     | 30.34% (17)     |
+
+
+>>> 
+================ RESTART: /Users/marktoms/Desktop/q2_plot.py ================
+                                                   Decision Tree Results                                                   
+---------------------------------------------------------------------------------------------------------------------------
+    Dataset     |     Default      |        0%        |       20%        |       50%        |       80%        |
+balance-scale   | 35.11% ( 2)     | 76.06% ( 2)     | 73.40% (17)     | 60.64% (17)     | 19.15% ( 7)     |
+primary-tumor   | 30.39% ( 2)     | 47.06% (12)     | 36.27% ( 7)     | 35.29% ( 7)     |  4.90% (22)     |
+glass           | 36.92% ( 2)     | 69.23% ( 7)     | 66.15% (22)     | 47.69% (12)     | 12.31% (27)     |
+heart-h         | 59.55% ( 2)     | 76.40% (22)     | 77.53% (22)     | 38.20% (27)     | 30.34% (17)     |
+
+
+>>> 
