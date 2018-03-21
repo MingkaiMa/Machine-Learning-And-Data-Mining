@@ -101,7 +101,6 @@ for fname in ["anneal.arff", "audiology.arff", "autos.arff", "credit-a.arff", \
     input_data = np.concatenate((transformed_X, Y.T), axis = 1)
 
 
-
     # build the models
     models = [DummyClassifier(strategy = 'most_frequent')] \
               + [KNeighborsClassifier(n_neighbors = 1, algorithm = "brute")] * 5 \
@@ -131,6 +130,7 @@ for fname in ["anneal.arff", "audiology.arff", "autos.arff", "credit-a.arff", \
 #        sys.exit()
 
     score_list.append((fname[:-5], 1 - np.array(scores)))
+    sys.exit()
 
 ##sys.exit()
 # print the results
