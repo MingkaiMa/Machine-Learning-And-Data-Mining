@@ -1,0 +1,3 @@
+Mon 7 May: implement knn for classification, and leave one out cross validation
+           test by sklearn
+	   reference: https://machinelearningmastery.com/tutorial-to-implement-k-nearest-neighbors-in-python-from-scratch/
