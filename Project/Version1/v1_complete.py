@@ -1,3 +1,7 @@
+#
+# implement knn classifier
+#
+
 import arff
 import numpy as np
 import math
