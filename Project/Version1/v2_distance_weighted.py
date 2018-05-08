@@ -62,7 +62,21 @@ class knnRegressor:
 
         return math.sqrt(distance)
 
-    def getKNNRegressorResult(self, test_data):
+
+    #
+    # this is according to the sklearn KNeighborsClassifier(weights='distance')
+    #
+    def weighted_distance(self, instance1, instance2):
+        distance = 0
+        for i in range(len(instance1)):
+            distance += math.pow((instance1[i] - instance2[i]), 2)
+
+        if distance == 0:
+            return 1
+        return 1 / math.sqrt(distance)
+
+
+    def getKNNRegressorResult_weighted_distance(self, test_data):
         res = []
 
         for i in range(len(self.X)):
@@ -76,33 +90,64 @@ class knnRegressor:
  #       print(final_k)
 
         index_list = [i[0] for i in final_k]
- #       print(index_list)
-        top_k_value = [self.Y[i] for i in index_list]
- #       print(top_k_value)
-
-        return np.mean(top_k_value)
 
 
-    def getKNNRegressorResult_LOOCV(self, test_data, leave_index):
+        res = 0
+        total_weight = 0
+        
+        for index in index_list:
+            own_weight = self.weighted_distance(self.X[index], test_data)
+            total_weight += own_weight
+            res += self.Y[index] * own_weight
+
+
+        return res / total_weight
+            
+        
+## #       print(index_list)
+##        top_k_value = [self.Y[i] for i in index_list]
+## #       print(top_k_value)
+##
+##        return np.mean(top_k_value)
+
+
+    def getKNNRegressorResult_LOOCV_weight_distance(self, test_data, leave_index):
+
         train_data = np.concatenate((self.X[:leave_index], self.X[leave_index+1: ]))
         train_label = np.concatenate((self.Y[:leave_index], self.Y[leave_index+1: ]))
 
         res = []
 
-        for i in range(len(train_data)):
-            distance = self.euclideanDistance(train_data[i], test_data)
-            res.append((i, distance))        
+##        for i in range(len(train_data)):
+##
+##            distance = self.euclideanDistance(train_data[i], test_data)
+##            res.append((i, distance))        
 
+        for i in range(len(train_data) - 1, -1, -1):
+            distance = self.euclideanDistance(train_data[i], test_data)
+            res.append((i, distance)) 
 
         res = sorted(res, key = lambda x: x[1])
         final_k = res[: self.k]
         print(final_k)
         index_list = [i[0] for i in final_k]
-        print(index_list)
-        top_k_value = [train_label[i] for i in index_list]
+##        print(index_list)
+        res = 0
+        total_weight = 0
+        
+        for index in index_list:
+            own_weight = self.weighted_distance(train_data[index], test_data)
+            total_weight += own_weight
+            res += train_label[index] * own_weight
+
+            if self.euclideanDistance(test_data, train_data[index]) == 0:
+                return train_label[index]
 
 
-        return np.mean(top_k_value)
+##        print(res)
+##        print(total_weight)
+        return res / total_weight
+
 
 
         
@@ -114,7 +159,8 @@ class knnRegressor:
         train_label = np.concatenate((self.Y[:leave_index], self.Y[leave_index+1: ]))
         
 
-        neigh = KNeighborsRegressor(n_neighbors=self.k)
+        neigh = KNeighborsRegressor(n_neighbors=self.k,
+                                    weights='distance')
 
         neigh.fit(train_data, train_label)
         res = neigh.predict([test_data])
@@ -130,7 +176,8 @@ class knnRegressor:
 
         i = 0
         while(i < total_time):
-            res = self.getKNNRegressorResult_LOOCV(self.X[i], i)
+
+            res = self.getKNNRegressorResult_LOOCV_weight_distance(self.X[i], i)
             res2 = self.getKNNRegressorResult_LOOCV_sklearn(self.X[i], i)[0]
 
             if(res != res2):
@@ -146,8 +193,8 @@ class knnRegressor:
 
             i += 1
 
-        print(np.mean(error_rate))
-        print(np.mean(error_rate2))
+##        print(np.mean(error_rate))
+##        print(np.mean(error_rate2))
 
         return np.mean(error_rate)
 
@@ -170,9 +217,22 @@ class knnRegressor:
         return np.mean(error_rate)        
         
 
-    
-
-knn = knnRegressor(data_file, 5)
+## not exactly same with sklearn, because there are some same distances points, sklearn may choose
+## different points with my own choice
+##    
+##print('My solution       sklearn')
+##
+##for i in range(1, 20):
+##    knn = knnRegressor(data_file, i)
+##    print('=============', i)
+##    myRes = knn.LOOCV()
+##    skRes = knn.testWithSklearn()
+##
+##    print(f'{myRes:.12f}',end='')
+##    print('   ', skRes)
+##
+##    
+knn = knnRegressor(data_file, 1)
 ##print(knn.LOOCV())
 
 ##print(knn.testWithSklearn())
@@ -188,12 +248,12 @@ knn = knnRegressor(data_file, 5)
 ##print(neigh.predict([test_instance]))
 
 
-leave_index = 13
+leave_index = 42
 train_data = np.concatenate((knn.X[:leave_index], knn.X[leave_index+1: ]))
 train_label = np.concatenate((knn.Y[:leave_index], knn.Y[leave_index+1: ]))
 
 test_data = knn.X[leave_index]
-neigh = KNeighborsRegressor(n_neighbors = knn.k)
+neigh = KNeighborsRegressor(n_neighbors = knn.k, weights='distance')
 
 neigh.fit(train_data, train_label)
 neigh.predict([test_data])
