@@ -12,6 +12,8 @@ from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import KFold
 
 
+import matplotlib.pyplot as plt
+
 
             
 
@@ -96,9 +98,9 @@ class knnRegressor:
 
         res = sorted(res, key = lambda x: x[1])
         final_k = res[: self.k]
-        print(final_k)
+##        print(final_k)
         index_list = [i[0] for i in final_k]
-        print(index_list)
+##        print(index_list)
         top_k_value = [train_label[i] for i in index_list]
 
 
@@ -133,10 +135,10 @@ class knnRegressor:
             res = self.getKNNRegressorResult_LOOCV(self.X[i], i)
             res2 = self.getKNNRegressorResult_LOOCV_sklearn(self.X[i], i)[0]
 
-            if(res != res2):
-                print(i, ' !==========')
-                print(res, ' ', res2)
-
+##            if(res != res2):
+##                print(i, ' !==========')
+##                print(res, ' ', res2)
+##
             #print(res, ' ', res2)
             err = abs(res - self.Y[i]) / self.Y[i]
             err2 = abs(res2 - self.Y[i]) / self.Y[i]
@@ -145,9 +147,9 @@ class knnRegressor:
             error_rate2.append(err2)
 
             i += 1
-
-        print(np.mean(error_rate))
-        print(np.mean(error_rate2))
+##
+##        print(np.mean(error_rate))
+##        print(np.mean(error_rate2))
 
         return np.mean(error_rate)
 
@@ -169,10 +171,30 @@ class knnRegressor:
 
         return np.mean(error_rate)        
         
+myList = []
+skList = []
 
+
+for i in range(1, 21):
+    knn = knnRegressor(data_file, i)
+    print('=============', i)
+    myRes = knn.LOOCV()
+    skRes = knn.testWithSklearn()
+
+    myList.append(myRes)
+    skList.append(skRes)
     
+    print(f'{myRes:.12f}',end='')
+    print('   ', skRes)
 
-knn = knnRegressor(data_file, 5)
+plt.plot(myList, label='My implement')
+plt.plot(skList, label='sklearn')
+plt.xlabel('k')
+plt.ylabel('accuracy')
+plt.legend()
+plt.show()
+
+##knn = knnRegressor(data_file, 5)
 ##print(knn.LOOCV())
 
 ##print(knn.testWithSklearn())
@@ -188,13 +210,13 @@ knn = knnRegressor(data_file, 5)
 ##print(neigh.predict([test_instance]))
 
 
-leave_index = 13
-train_data = np.concatenate((knn.X[:leave_index], knn.X[leave_index+1: ]))
-train_label = np.concatenate((knn.Y[:leave_index], knn.Y[leave_index+1: ]))
-
-test_data = knn.X[leave_index]
-neigh = KNeighborsRegressor(n_neighbors = knn.k)
-
-neigh.fit(train_data, train_label)
-neigh.predict([test_data])
+##leave_index = 13
+##train_data = np.concatenate((knn.X[:leave_index], knn.X[leave_index+1: ]))
+##train_label = np.concatenate((knn.Y[:leave_index], knn.Y[leave_index+1: ]))
+##
+##test_data = knn.X[leave_index]
+##neigh = KNeighborsRegressor(n_neighbors = knn.k)
+##
+##neigh.fit(train_data, train_label)
+##neigh.predict([test_data])
 

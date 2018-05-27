@@ -24,7 +24,7 @@ class knnRegressor:
         self.dataset = arff.load(open(data_file, 'r'))
         self.data = np.array(self.dataset['data'])
 
-        self.X = np.array(self.data)[:, :-1]
+        self.X = np.array(self.data)[:, :]
 
         no_missing_index = []
 
@@ -37,14 +37,16 @@ class knnRegressor:
 
         continuous_index = []
         for i in range(len(self.dataset['attributes'])):
-            if(self.dataset['attributes'][i][1] == 'REAL'):
+            if(self.dataset['attributes'][i][1] == 'REAL') or self.dataset['attributes'][i][0] == 'symboling':
                 continuous_index.append(i)
 
-
-        price_index = continuous_index.pop()
+        price_index = continuous_index.pop(-2)
 
         self.X = self.X[no_missing_index, :]
         self.X = self.X[:, continuous_index]
+        for i in self.X:
+            i[-1] = int(i[-1])
+            
         self.Y = np.array(self.data)[:, price_index]
         self.Y = self.Y[no_missing_index]
 
@@ -75,6 +77,22 @@ class knnRegressor:
             return 1
         return 1 / math.sqrt(distance)
 
+    def getKNNRegressorResult(self, test_data):
+        res = []
+
+        for i in range(len(self.X)):
+            distance = self.euclideanDistance(self.X[i], test_data)
+            res.append((i, distance))
+
+
+        res = sorted(res, key = lambda x: x[1])
+        
+        final_k = res[: self.k]
+        
+        index_list = [i[0] for i in final_k]
+
+        top_k_value = [self.Y[i] for i in index_list]
+        return np.mean(top_k_value)
 
     def getKNNRegressorResult_weighted_distance(self, test_data):
         res = []
@@ -129,7 +147,7 @@ class knnRegressor:
 
         res = sorted(res, key = lambda x: x[1])
         final_k = res[: self.k]
-        print(final_k)
+        #printprint(final_k)
         index_list = [i[0] for i in final_k]
 ##        print(index_list)
         res = 0
@@ -179,10 +197,10 @@ class knnRegressor:
 
             res = self.getKNNRegressorResult_LOOCV_weight_distance(self.X[i], i)
             res2 = self.getKNNRegressorResult_LOOCV_sklearn(self.X[i], i)[0]
-
-            if(res != res2):
-                print(i, ' !==========')
-                print(res, ' ', res2)
+##
+##            if(res != res2):
+##                print(i, ' !==========')
+##                print(res, ' ', res2)
 
             #print(res, ' ', res2)
             err = abs(res - self.Y[i]) / self.Y[i]
@@ -216,30 +234,44 @@ class knnRegressor:
 
         return np.mean(error_rate)        
         
+myList = []
+skList = []
 
+import matplotlib.pyplot as plt
 ## not exactly same with sklearn, because there are some same distances points, sklearn may choose
 ## different points with my own choice
 ##    
-##print('My solution       sklearn')
-##
-##for i in range(1, 20):
-##    knn = knnRegressor(data_file, i)
-##    print('=============', i)
-##    myRes = knn.LOOCV()
-##    skRes = knn.testWithSklearn()
-##
-##    print(f'{myRes:.12f}',end='')
-##    print('   ', skRes)
-##
-##    
-knn = knnRegressor(data_file, 1)
+print('My solution       sklearn')
+
+for i in range(1, 21):
+    knn = knnRegressor(data_file, i)
+    print('=============', i)
+    myRes = knn.LOOCV()
+    skRes = knn.testWithSklearn()
+
+    myList.append(myRes)
+    skList.append(skRes)
+    
+    print(f'{myRes:.12f}',end='')
+    print('   ', skRes)
+plt.plot(myList, label='My implement')
+plt.plot(skList, label='sklearn')
+plt.xlabel('k')
+plt.ylabel('accuracy')
+plt.legend()
+plt.show()
+
+
+##knn = knnRegressor(data_file, 1)
+##import sys
+##sys.exit()
 ##print(knn.LOOCV())
 
 ##print(knn.testWithSklearn())
 ##data_file = './data/autos.arff.txt'
-##knn = knnRegressor(data_file, 10)
-##
-##test_instance = knn.X[1]
+knn = knnRegressor(data_file, 10)
+
+##test_instance = knn.X[20]
 ##
 ##res = knn.getKNNRegressorResult(test_instance)
 ##
@@ -248,13 +280,15 @@ knn = knnRegressor(data_file, 1)
 ##print(neigh.predict([test_instance]))
 
 
-leave_index = 42
-train_data = np.concatenate((knn.X[:leave_index], knn.X[leave_index+1: ]))
-train_label = np.concatenate((knn.Y[:leave_index], knn.Y[leave_index+1: ]))
-
-test_data = knn.X[leave_index]
-neigh = KNeighborsRegressor(n_neighbors = knn.k, weights='distance')
-
-neigh.fit(train_data, train_label)
-neigh.predict([test_data])
+##leave_index = 50
+##train_data = np.concatenate((knn.X[:leave_index], knn.X[leave_index+1: ]))
+##train_label = np.concatenate((knn.Y[:leave_index], knn.Y[leave_index+1: ]))
+##
+##test_data = knn.X[leave_index]
+##neigh = KNeighborsRegressor(n_neighbors = knn.k, weights='distance')
+##
+##neigh.fit(train_data, train_label)
+##
+##print(knn.getKNNRegressorResult_LOOCV_weight_distance(test_data, leave_index))
+##print(neigh.predict([test_data]))
 

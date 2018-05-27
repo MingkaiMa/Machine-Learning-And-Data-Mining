@@ -46,7 +46,7 @@ class KNN:
     #
     # this is according to the sklearn KNeighborsClassifier(weights='distance')
     #
-    def weighted_distance(sefl, instance1, instance2):
+    def weighted_distance(self, instance1, instance2):
         distance = 0
         for i in range(len(instance1)):
             distance += math.pow((instance1[i] - instance2[i]), 2)
